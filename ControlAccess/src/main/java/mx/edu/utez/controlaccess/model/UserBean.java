@@ -26,4 +26,10 @@ public class UserBean {
     @Column(name = "state")
     private String state;
 
+    @Column(name = "role")
+    private String role;
+
+    @OneToOne(mappedBy = "user")
+    private TokenBean token_id;
+
 }

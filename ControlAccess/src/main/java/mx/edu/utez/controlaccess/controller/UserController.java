@@ -55,11 +55,11 @@ public class UserController {
 
     @PutMapping("/user/{idEncripted}")
     public ResponseEntity<?> updateUser(@PathVariable String idEncripted, @RequestBody RequestDto req) throws Exception {
-        Optional<?> object = encriptTool.decryptObject(req.getData(), UserBean.class);
+        Optional<?> object = encriptTool.decryptObject(req.getData(), UserDto.class);
         Optional<Long> value = encriptTool.decryptValue(idEncripted, Long.class);
-        UserBean user = new UserBean();
+        UserDto user;
         if(object.isPresent()){
-            user = (UserBean) object.get();
+            user = (UserDto) object.get();
         } else {
             return customResponse.get400Response(400, "Ha ocurrido un error al envíar la información", "Bad Request" );
         }
