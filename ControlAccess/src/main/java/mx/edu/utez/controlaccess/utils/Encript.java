@@ -39,14 +39,10 @@ public class Encript {
         Gson gson = new Gson();
         return Optional.ofNullable(gson.fromJson(json, clase));
     }
-    public String encryptValue(String llave, String iv, Optional<?> valor) throws Exception {
-        if (llave == null || iv == null || llave.length() != 16 || iv.length() != 16) {
-            throw new IllegalArgumentException("La llave y el IV deben tener exactamente 16 caracteres.");
-        }
-
+    public String encryptValue(Optional<?> valor) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        SecretKeySpec secretKeySpec = new SecretKeySpec(llave.getBytes("UTF-8"), "AES");
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes("UTF-8"));
+        SecretKeySpec secretKeySpec = new SecretKeySpec("HelloUnhappyReoN".getBytes("UTF-8"), "AES");
+        IvParameterSpec ivParameterSpec = new IvParameterSpec("HelloUnhappyReoN".getBytes("UTF-8"));
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
 
         byte[] encrypted = cipher.doFinal(valor.get().toString().getBytes("UTF-8"));

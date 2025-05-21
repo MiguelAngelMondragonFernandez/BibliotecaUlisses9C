@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -16,14 +17,14 @@ import java.util.List;
 public class Global extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
-    public org.springframework.http.ResponseEntity<Object> handleCustomException(CustomException e) {
+    public ResponseEntity<Object> handleCustomException(CustomException e) {
         return org.springframework.http.ResponseEntity.status(e.getStatusCode())
                 .body(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public org.springframework.http.ResponseEntity<Object> handleException(Exception e) {
-        return org.springframework.http.ResponseEntity.badRequest().body(e.getMessage());
+    public ResponseEntity<Object> handleException(Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @Override
