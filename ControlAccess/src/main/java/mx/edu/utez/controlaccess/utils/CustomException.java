@@ -1,6 +1,9 @@
 package mx.edu.utez.controlaccess.utils;
 
 
+import lombok.Getter;
+
+@Getter
 public class CustomException extends RuntimeException {
 
     private final int statusCode;
@@ -10,7 +13,4 @@ public class CustomException extends RuntimeException {
         this.statusCode = statusCode;
     }
 
-    public int getStatusCode() {
-        return statusCode;
-    }
 }
