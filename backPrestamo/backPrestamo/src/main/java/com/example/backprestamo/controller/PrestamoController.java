@@ -1,6 +1,7 @@
 package com.example.backprestamo.controller;
 
 import com.example.backprestamo.kernel.ApiResponse;
+import com.example.backprestamo.model.dto.ChangeStatusDTO;
 import com.example.backprestamo.model.dto.PrestamoDTO;
 import com.example.backprestamo.model.dto.PrestamoEntregaDTO;
 import com.example.backprestamo.service.PrestamoService;
@@ -39,8 +40,8 @@ public class PrestamoController {
     }
 
     @PatchMapping("/changestatus/{id}")
-    public ResponseEntity<ApiResponse> changeStatus(@Valid @PathVariable Long id) {
-        prestamoService.changeStatus(id);
+    public ResponseEntity<ApiResponse> changeStatus(@Valid @PathVariable Long id, @RequestBody ChangeStatusDTO changeStatusDTO) {
+        prestamoService.changeStatus(id, changeStatusDTO.getStatus());
         return new ResponseEntity<>(new ApiResponse(id, HttpStatus.OK), HttpStatus.OK);
     }
 }

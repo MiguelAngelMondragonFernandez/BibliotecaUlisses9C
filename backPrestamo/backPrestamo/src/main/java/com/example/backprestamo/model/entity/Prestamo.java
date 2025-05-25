@@ -35,7 +35,10 @@ public class Prestamo {
     private Long usuarioId;
 
     @Column(name = "status", nullable = false)
-    private Boolean status;
+    private Integer status;
+
+    @Column(name = "tipo_pago", nullable = false)
+    private String tipoPago;
 
 
 }
