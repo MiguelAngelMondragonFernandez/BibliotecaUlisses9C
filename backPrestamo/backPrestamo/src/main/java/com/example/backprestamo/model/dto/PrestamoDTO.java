@@ -1,5 +1,8 @@
 package com.example.backprestamo.model.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +31,14 @@ public class PrestamoDTO {
     @NotNull(message = "El id del usuario no puede ser nulo")
     private Long usuarioId;
 
+    @Min(value = 0)
+    @Max(value = 2)
     @NotNull(message = "El status no puede ser nulo")
-    private Boolean status;
+    private Integer status;
 
+    @Pattern(regexp = "^(Efectivo|Tarjeta)$", message = "El tipo de pago debe ser 'Efectivo' o 'Tarjeta'")
+    @NotNull(message = "El tipo de pago no puede ser nulo")
+    private String tipoPago;
 
 
 }

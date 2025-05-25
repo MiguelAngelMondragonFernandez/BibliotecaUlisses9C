@@ -45,6 +45,7 @@ public class PrestamoService {
         prestamo.setLibroId(prestamodto.getLibroId());
         prestamo.setFechaSolicitud(prestamodto.getFechaSolicitud());
         prestamo.setFechaEntrega(prestamodto.getFechaEntrega());
+        prestamo.setTipoPago(prestamodto.getTipoPago());
         Prestamo prestamoGuardado = repository.save(prestamo);
         return new ResponseEntity<>(new ApiResponse(prestamoGuardado, HttpStatus.CREATED), HttpStatus.CREATED);
     }
@@ -59,14 +60,14 @@ public class PrestamoService {
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public void changeStatus(Long id){
-        Optional<Prestamo> foundPrestamo = repository.findById(id);
-        if (foundPrestamo.isPresent()) {
-            Prestamo prestamo = foundPrestamo.get();
-            prestamo.setStatus(!prestamo.getStatus());
-        } else {
-            throw new RuntimeException("PrestamoNotFound");
+    public void changeStatus(Long id, Integer nuevoStatus){
+        if (nuevoStatus < 0 || nuevoStatus > 2) {
+            throw new IllegalArgumentException("Estado inválido, debe ser entre 0 y 2");
         }
+        Prestamo prestamo = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prestamo no encontrado"));
+
+        prestamo.setStatus(nuevoStatus);
     }
 
 
